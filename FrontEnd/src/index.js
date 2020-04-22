@@ -35,16 +35,18 @@ import { Provider } from 'react-redux';
 
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import store from './store'
 
+// React.StrictMode has various advantages, ex: https://stackoverflow.com/questions/53183362/what-is-strictmode-in-react
 ReactDOM.render(
-  // <Provider> 
+  <Provider store={store}> 
     <BrowserRouter>
       <React.StrictMode>
         <App />
       </React.StrictMode>
     </BrowserRouter>
-  // </Provider>,
-  ,document.getElementById('root')
+  </Provider>,
+   document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change
