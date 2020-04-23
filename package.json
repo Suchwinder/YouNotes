@@ -4,7 +4,9 @@
   "description": "Note taking web application",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "client-install": "npm install --prefix FrontEnd",
+    "server-install": "npm install --prefeix BackEnd"
   },
   "author": "Suchwinder Singh & Marika Watanabe",
   "license": "ISC"
