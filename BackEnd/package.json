@@ -1,0 +1,16 @@
+{
+  "name": "you-notes",
+  "version": "0.0.0",
+  "description": "Back end of full stack web app for note taking",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Such",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "morgan": "^1.10.0",
+    "path": "^0.12.7"
+  }
+}
