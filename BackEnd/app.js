@@ -26,6 +26,13 @@ const helmet = require('helmet');
  */
 const compression = require('compression');
 
+/**
+ * Used in order for react app thats on port 3000 to make requests to our backend thats on port 3001
+ * more info: https://www.freecodecamp.org/news/fullstack-react-blog-app-with-express-and-psql/
+ * or: https://www.npmjs.com/package/cors
+ */
+const cors = require('cors');
+
 // Using the various middleware, and other imports
 app.use(logger('dev')); // for logging requests
 app.use(helmet()); // for addidtional security in headers
@@ -35,6 +42,7 @@ app.use(compression()); // reduce request body size, more info refer to above li
 // Will be used later when our app is built and need to use 
 // static files like css, js, and images etc. : https://expressjs.com/en/starter/static-files.html
 // app.use(express.static("../FrontEnd/build")); // 
+app.use(cors());
 
 //need a port to listen to, front end is 3000 so I will use 3001
 port = process.env.PORT||3001;
