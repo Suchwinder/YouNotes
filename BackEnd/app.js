@@ -33,8 +33,8 @@ app.use(express.json()); // take incoming requests as a json (easier to parse), 
 app.use(express.urlencoded({ extended: false })); // takes URL encoded links and parses them I think, based on bodyParser middleware: https://expressjs.com/en/api.html#express.urlencoded
 app.use(compression()); // reduce request body size, more info refer to above link when imported
 // Will be used later when our app is built and need to use 
-// static files like css, js, and images etc. 
-// app.use(express.static("../FrontEnd/build"));
+// static files like css, js, and images etc. : https://expressjs.com/en/starter/static-files.html
+// app.use(express.static("../FrontEnd/build")); // 
 
 //need a port to listen to, front end is 3000 so I will use 3001
 port = process.env.PORT||3001;
