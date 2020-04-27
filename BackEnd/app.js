@@ -33,6 +33,18 @@ const compression = require('compression');
  */
 const cors = require('cors');
 
+/**
+ * Need to set up database with sequalize
+ */
+const db = require('./database')
+
+/**
+ * function to create local database
+ */
+const createLocalDatabase = require('./utilities/createLocalDatabase');
+// to set up database
+createLocalDatabase();
+
 // Using the various middleware, and other imports
 app.use(logger('dev')); // for logging requests
 app.use(helmet()); // for addidtional security in headers
