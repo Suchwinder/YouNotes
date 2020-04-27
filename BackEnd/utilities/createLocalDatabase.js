@@ -15,7 +15,7 @@ const pgtools = require('pgtools');
 /**
  * Getting private hidden dbname for this app
  */
-const { dbname } = require('../config')
+const { dbname, pass } = require('../config')
 
 /**
  * Set up configurations to connect/create database
@@ -24,7 +24,7 @@ const config = {
   user: 'postgres',
   host: 'localhost',
   port: 5432, //this is why CORS doesnt occur on the database https://stackoverflow.com/questions/36958999/cors-is-it-a-client-side-thing-a-server-side-thing-or-a-transport-level-thin
-  password: ''
+  password: pass
 }
 
 const createLocalDatabase = () => pgtools.createdb(config, dbname, function (err, res) {
