@@ -45,6 +45,35 @@ const createLocalDatabase = require('./utilities/createLocalDatabase');
 // to set up database
 createLocalDatabase();
 
+// calling function needed for seeding database
+const seedDatabase = require('./utilities/seedDataBase');
+
+const prepareDatabase = () => {
+  if(process.env.NODE_ENV === 'production') {
+    db.sync().then(()=> seedDatabase())
+  }
+  else {
+    console.log('As a reminder, the forced synchronization option is on');
+    /**
+     * sync will create tables that dont exist, and force:true will recreate tables 
+     * more info: https://stackoverflow.com/questions/50358977/what-is-really-sync-in-sequelize-for 
+    */
+    db.sync({force:true})
+    .then(() => seedDatabase())
+    .catch(err => {
+      if (err.name === 'SequelizeConnectionError') {
+        createLocalDatabase();
+        seedDatabase();
+      }
+      else {
+        console.log(err);
+      }
+    });
+  }
+}
+
+// Calling function to set up database
+prepareDatabase();
 // Using the various middleware, and other imports
 app.use(logger('dev')); // for logging requests
 app.use(helmet()); // for addidtional security in headers

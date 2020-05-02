@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 /**
  * Need our database connection via sequelize to define models
  */
-import db from '../index';
+const db = require('../index');
 
 /**
  * Creating a User table with sequlize models, via the define approach
@@ -11,7 +11,7 @@ import db from '../index';
 const User = db.define('user', {
     //attributes
     id: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true // Automatically gets converted to SERIAL for postgres
     },
@@ -26,7 +26,7 @@ const User = db.define('user', {
         allowNull:false
     },
 
-    userName: {
+    username: {
         type: Sequelize.STRING,
         allowNull: false
     },
@@ -35,7 +35,7 @@ const User = db.define('user', {
         type: Sequelize.STRING,
         allowNull: false
     },
-    
+
     password: {
         type: Sequelize.STRING,
         allowNull: Sequelize.STRING
