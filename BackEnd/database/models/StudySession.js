@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-import db from '../index';
+const db = require('../index');
 
 const StudySession = db.define ('studySession', {
     id: {
