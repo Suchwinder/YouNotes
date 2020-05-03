@@ -38,7 +38,7 @@ const createLocalDatabase = () => pgtools.createdb(config, dbname, function (err
     console.log(res);
     console.log(`Successfully created the database: ${dbname}!`);
   }
-  // This I believe deletes the database once the server stops running, not sure
+  // This I believe deletes the database
   // pgtools.dropdb(config, dbname, function (err, res) {
   //   if (err) {
   //     console.error(err);
