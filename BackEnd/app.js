@@ -42,12 +42,11 @@ const db = require('./database')
  * function to create local database
  */
 const createLocalDatabase = require('./utilities/createLocalDatabase');
-// to set up database
-createLocalDatabase();
 
 // calling function needed for seeding database
 const seedDatabase = require('./utilities/seedDataBase');
 
+// creating function to sync database asynchoronously
 const prepareDatabase = () => {
   if(process.env.NODE_ENV === 'production') {
     db.sync().then(()=> seedDatabase())
@@ -60,30 +59,45 @@ const prepareDatabase = () => {
     */
     db.sync({force:true})
     .then(() => seedDatabase())
-    .catch(err => {
+    .catch( async (err) => {
       if (err.name === 'SequelizeConnectionError') {
-        createLocalDatabase();
-        seedDatabase();
+        // create the local database
+        await createLocalDatabase();
+        // need to connect sequelize instance to database before seeding
+        await db.sync({force:true});
+        // and now can populate database
+        await seedDatabase();
       }
       else {
         console.log(err);
       }
     });
   }
-}
+};
 
-// Calling function to set up database
-prepareDatabase();
-// Using the various middleware, and other imports
-app.use(logger('dev')); // for logging requests
-app.use(helmet()); // for addidtional security in headers
-app.use(express.json()); // take incoming requests as a json (easier to parse), based on bodyParser middleware: https://expressjs.com/en/api.html#express.json
-app.use(express.urlencoded({ extended: false })); // takes URL encoded links and parses them I think, based on bodyParser middleware: https://expressjs.com/en/api.html#express.urlencoded
-app.use(compression()); // reduce request body size, more info refer to above link when imported
-// Will be used later when our app is built and need to use 
-// static files like css, js, and images etc. : https://expressjs.com/en/starter/static-files.html
-// app.use(express.static("../FrontEnd/build")); // 
-app.use(cors());
+// creating a function to be called aynchornously when setting up middleware 
+const configureApp = () => {
+  // Using the various middleware, and other imports
+  app.use(logger('dev')); // for logging requests
+  app.use(helmet()); // for addidtional security in headers
+  app.use(express.json()); // take incoming requests as a json (easier to parse), based on bodyParser middleware: https://expressjs.com/en/api.html#express.json
+  app.use(express.urlencoded({ extended: false })); // takes URL encoded links and parses them I think, based on bodyParser middleware: https://expressjs.com/en/api.html#express.urlencoded
+  app.use(compression()); // reduce request body size, more info refer to above link when imported
+  // Will be used later when our app is built and need to use 
+  // static files like css, js, and images etc. : https://expressjs.com/en/starter/static-files.html
+  // app.use(express.static("../FrontEnd/build")); 
+  app.use(cors());
+};
+
+// want to asynchonously set up database but ensure the order of
+// events occurs properly. 
+const bootApp = async () => {
+  await prepareDatabase();
+  await configureApp();
+};
+
+// set up application
+bootApp();
 
 //need a port to listen to, front end is 3000 so I will use 3001
 port = process.env.PORT||3001;
