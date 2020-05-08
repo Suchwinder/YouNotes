@@ -1,0 +1,82 @@
+body{
+    padding: 0;
+    text-align: center;
+    background-color: #282c34;
+    margin: 0;
+  }
+
+
+.header{
+  font-family: sans-serif;
+  color: snow;
+  border: transparent;
+  text-transform: capitalize;
+}
+
+.log-in{
+  font-family: serif;
+  font-weight: bold;
+  color: white;
+}
+
+/* .login-header{  
+  color: aliceblue;
+  font-family: sans-serif;
+
+} */
+
+.sign-up{
+    font-family: serif;
+    font-weight: bold;
+    color: white;
+}
+
+.log-in-button{
+  display: inline-block;
+  width: 200px;
+  height: 70px;
+  box-shadow: 2px 2px 4px 0 rgba(0,0,0,.5);
+  margin: 23px;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  text-align: center;
+  font-weight: 600;
+  text-transform: none;
+  white-space: normal;
+  cursor: pointer;
+  color: #fff !important;
+  border-radius: 8px;
+  background: rgb(60, 63, 238) !important;
+  border-color: rgb(35, 26, 153) !important;
+}
+
+.signup-button{
+    display: inline-block;
+    width: 200px;
+    height: 70px;
+    box-shadow: 2px 2px 4px 0 rgba(0,0,0,.5);
+    margin: 23px;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    text-align: center;
+    font-weight: 600;
+    text-transform: none;
+    white-space: normal;
+    cursor: pointer;
+    color: #fff ;
+    border-radius: 8px;
+    background: rgb(60, 63, 238);
+    border-color: rgb(35, 26, 153);
+}
+
+.button:hover{
+  background-image: linear-gradient(navy, blue, lightblue);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+
+.OR-option{
+  font-family: sans-serif;
+}
