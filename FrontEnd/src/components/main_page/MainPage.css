@@ -19,12 +19,6 @@ body{
   color: white;
 }
 
-/* .login-header{  
-  color: aliceblue;
-  font-family: sans-serif;
-
-} */
-
 .sign-up{
     font-family: serif;
     font-weight: bold;
@@ -79,4 +73,26 @@ body{
 
 .OR-option{
   font-family: sans-serif;
+}
+
+.footer-contact{
+  margin-top: 300px;
+  font-family: sans-serif;
+  color: white;
+}
+
+.footer-info-r{
+  font-family: serif;
+  color: whitesmoke;
+  float: right;
+  margin-right: 150px;
+  margin-bottom: 50px;
+}
+
+.footer-info-l{
+  font-family: serif;
+  color: whitesmoke;
+  float: left;
+  margin-left: 150px;
+  margin-bottom: 50px;
 }

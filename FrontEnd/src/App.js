@@ -9,9 +9,6 @@ function App() {
   
   return (
     <div className="App">
-      <header className="App-header">
-        <p>Welcome to YouNotes</p>
-      </header>
       <Switch> 
         <Route exact path="/" render={MainPageComponent}/>
       </Switch>

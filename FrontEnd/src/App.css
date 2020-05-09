@@ -24,6 +24,18 @@
   color: white;
 }
 
+.App-header-title {
+  display: flex;
+  color: rgb(24, 87, 223);
+}
+
+.App-header-info {
+  display: flex;
+  margin-left: 100px;
+  margin-right: 100px;
+  font-family: sans-serif;
+}
+
 .App-link {
   color: #61dafb;
 }
