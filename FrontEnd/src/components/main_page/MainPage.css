@@ -7,10 +7,11 @@ body{
 
 
 .header{
-  font-family: sans-serif;
+  font-family:  'Playfair', sans-serif;
   color: snow;
   border: transparent;
   text-transform: capitalize;
+  padding: 60px;
 }
 
 .log-in{
@@ -96,3 +97,8 @@ body{
   margin-left: 150px;
   margin-bottom: 50px;
 }
+
+/* @font-face {
+  font-family: 'Playfair';
+  src: local('Playfair'), url(./fonts/PlayfairDisplay-VariableFont_wght.ttf) format('truetype');
+} */
