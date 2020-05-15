@@ -30,9 +30,7 @@ import * as serviceWorker from './serviceWorker';
 // React.StrictMode has various advantages, ex: https://stackoverflow.com/questions/53183362/what-is-strictmode-in-react
 ReactDOM.render(
     <BrowserRouter>
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
+      <App />
     </BrowserRouter>,
    document.getElementById('root')
 );
