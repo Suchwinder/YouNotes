@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Navbar.css';
 import { Link as ScrollLink} from 'react-scroll';
 import './../navigation_bar/Navbar.css';
 // Hooks uses makeStyles, in other cases we aren't using 
 // hooks but rather Higher Order Components (HOC), more info: https://reactjs.org/docs/higher-order-components.html
 // technically we are just using components, and so we would normally use with styles, but here we aren't
-import { makeStyles, withTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -25,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       backgroundColor: '#f0eded',
     },
+    margin: '1.1rem 1rem'
   },
   modal: {
     display: 'flex',
@@ -53,13 +55,19 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: 'royalblue',
     },
   },
+  textfields: {
+    marginBottom: '0.5em'
+  }
 }));
 
 const Navbar = props => {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
+  const [open, setOpen] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [firstname, setFirstName] = useState('');
+  const [lastname, setLastName] = useState('');
+  const [username, setUsername] = useState('');
 
   const handleOpen = () => {
     setOpen(true);
@@ -69,15 +77,27 @@ const Navbar = props => {
     setOpen(false);
   };
 
-  const handleChange = () => {
-
+  const handleChange = (event) => {
+    const name = event.target.name;
+    const data = event.target.value;
+    if(name === 'email-input'){
+      setEmail(data);
+    } else if(name === 'password-input'){
+      setPassword(data);
+    } else if(name === 'first-name-input'){
+      setFirstName(data);
+    }else if(name === 'last-name-input'){
+      setLastName(data);
+    }else if(name === 'username-input'){
+      setUsername(data);
+    }
   }
 
   const confirmLogIn = async (event) =>{
     event.preventDefault();
     const user = {
-      "email": this.state.email, 
-      "password": this.state.password
+      "email": email, 
+      "password": password
     }
     try{
       const response = await fetch('/api/login', {
@@ -100,6 +120,30 @@ const Navbar = props => {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  const confirmSignUp = async(event)=>{
+    const user = {
+      "first-name": firstname, 
+      "last-name": lastname,
+      "username": username, 
+      "email": email, 
+      "password": password
+    }
+    try{
+      const response = await('/api/signup', {
+        header: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        method: 'POST',
+        body: JSON.stringify(user)
+      });
+      console.log(response);
+    } catch(error){
+      console.log(error);
+    }
+    
   }
 
   return(
@@ -130,16 +174,85 @@ const Navbar = props => {
         >
           <Fade in={open}>
             <div className={classes.paper}>
-              <form className='log-in-form'>
+              <div className='login'>
                 <div className='email-password'>
-                  <label className='email'> Email: </label>
-                  <input type='email' name='email' placeholder='Email' value={email} onChange={handleChange}/>
-                  <label className='password'> Password: </label>
-                  <input type='text' name='password' placeholder="Password" value={password} onChange={handleChange}/>
+                  <TextField
+                    className={classes.textfields}
+                    required
+                    name="email-input"
+                    label="Email"
+                    variant="outlined"
+                    onChange={handleChange}
+                    // value={email}
+                  />
+                  <br/>
+                  <TextField
+                    className={classes.textfields}
+                    required
+                    name="password-input"
+                    label="Password"
+                    type="password"
+                    variant="outlined"
+                    onChange={handleChange}
+                    // value={password}
+                  />
                 </div>
                 <Button className={classes.registerbutton} onClick={confirmLogIn}>Log In</Button>
-              </form>
-              <Button className={classes.registerbutton}> Sign up </Button>
+              </div>
+              <div className='signup'>
+                <TextField
+                  className={classes.textfields}
+                  required
+                  name="first-name-input"
+                  label="First Name"
+                  variant="outlined"
+                  onChange={handleChange}
+                  // value={firstname}
+                />
+                <br/>
+                <TextField
+                  className={classes.textfields}
+                  required
+                  name="last-name-input"
+                  label="Last Name"
+                  variant="outlined"
+                  onChange={handleChange}
+                  // value={lastname}
+                />
+                <br/>
+                <TextField
+                  className={classes.textfields}
+                  required
+                  name="username-input"
+                  label="Username"
+                  variant="outlined"
+                  onChange={handleChange}
+                  // value={username}
+                />
+                <br/>
+                <TextField
+                  className={classes.textfields}
+                  required
+                  name="email-input"
+                  label="Email"
+                  variant="outlined"
+                  onChange={handleChange}
+                  // value={email}
+                />
+                <br/>
+                <TextField
+                  className={classes.textfields}
+                  required
+                  name="password-input"
+                  label="Password"
+                  type="password"
+                  variant="outlined"
+                  onChange={handleChange}
+                  // value={password}
+                />
+                <br/>
+                <Button className={classes.registerbutton} onClick={confirmSignUp}> Sign up </Button>
+              </div>
             </div>
           </Fade>
         </Modal>
