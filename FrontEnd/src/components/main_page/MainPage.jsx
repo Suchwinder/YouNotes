@@ -1,9 +1,62 @@
 import React from 'react';
-import './MainPage.css';
+import './static/css/MainPage.css';
 import Navbar from './../navigation_bar/Navbar';
 import GitHubButton from 'react-github-btn';
+import { makeStyles } from '@material-ui/core/styles';
+import { Typography, ButtonBase } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Card from '@material-ui/core/Card';
+import such from './static/images/such.png';
+import marika from './static/images/marika.png';
+
+const Marika = { 
+  name : 'Marika',
+  description: 'Another Programmer',
+  picture: marika,
+};
+const Such = { 
+  name : 'Such',
+  description: 'Another Programmer',
+  picture: such 
+};
+const contributers = [Marika, Such]
+
+const useStyles = makeStyles((theme) => ({
+  cards: {
+    paddingTop: '2vh',
+    paddingLeft : '2vh',
+    paddingRight : '2vh',
+    justifyContent: "center",
+  },
+  card: {
+    width: 200,
+    height: 250,
+    margin: '2vh',
+  },
+  media: {
+    height: 125,
+  },
+  theTeam:{
+    paddingTop: '3vh',
+    color: 'white',
+    fontFamily:  'Playfair',
+  }
+}));
 
 const MainPage = () => {
+  const handleLink = (name) => {
+    // event.preventDefault();
+    // const name = event.target.name;
+    // console.log(name)
+    if(name==='Such'){
+      window.open('https://github.com/Suchwinder');
+    } else{
+      window.open('https://github.com/MarikaWatanabe');
+    }
+  }
+  const classes = useStyles();
   return (
     <div className = 'home'> 
       <Navbar/>
@@ -16,6 +69,28 @@ const MainPage = () => {
       <main style={{marginTop:'64px'}} id='main'>
         <div className = 'main-page'>
           <h1 className='header' id='catch-phrase'>Take Notes Efficiently</h1>  
+          <Grid item xs={12} className={classes.theTeam}><Typography variant="h5"> {"Contributors"}</Typography></Grid>
+          <Grid container className={classes.cards}>
+            {contributers.map((contributer) => ( 
+              <ButtonBase onClick={()=>handleLink(contributer.name)} key={contributer.name}>
+                <Card key={contributer.name} className={classes.card} raised>
+                  <CardMedia
+                    className={classes.media}
+                    image={contributer.picture}
+                  />
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="h2">
+                      {contributer.name}
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary" component="p">
+                      {contributer.description}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </ButtonBase>
+
+            ))}
+          </Grid>
         </div>
       </main>
       <footer>
