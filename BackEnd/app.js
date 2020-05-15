@@ -34,6 +34,14 @@ const compression = require('compression');
 const cors = require('cors');
 
 /**
+ * Use in order to pass information from one request to another,
+ * basically a way to keep track of who is making the request, without using a 
+ * cookies that can be accessed on the browser, but rather a session id
+ * more info: https://www.tutorialspoint.com/expressjs/expressjs_sessions.htm
+ */
+const session = require('express-session');
+
+/**
  * Need to set up database with sequalize
  */
 const db = require('./database')
