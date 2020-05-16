@@ -1,4 +1,3 @@
-
 .navbar{
     position: fixed;
     width: 100%;
@@ -14,13 +13,18 @@
     display: flex;
     height: 100%;
     align-items: center;
-    padding: 0 1rem;
+    padding: 0rem 1rem;
 }
 
+/* .navbar-options #non-main-nav-options {
+    float: right;
+} */
+
 .navbar-items a{
-   color: royalblue;
-   font-family: sans-serif;
-   text-decoration: none;
+    padding: 1.1rem 1rem;
+    color: royalblue;
+    font-family: sans-serif;
+    text-decoration: none;
 }
 
 .navbar-items ul{
@@ -36,5 +40,13 @@
 
 .navbar-items a:hover ,
 .navbar-items a:active {
-    color: steelblue;
+    cursor: pointer;
+    background-color: #f0eded;
+    border-radius: 5px;
 }
+
+/* .close-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+} */
