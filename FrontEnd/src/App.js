@@ -14,7 +14,7 @@ function App() {
     <div className="App">
       <Switch> 
         <Route exact path="/" render={MainPageComponent}/>
-        <Route exact path="/loggedin" render={SingleUserComponent}/>
+        <Route exact path="/study_sessions" render={SingleUserComponent}/>
       </Switch>
     </div>
   );
