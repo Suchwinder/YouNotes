@@ -11,7 +11,10 @@ const getStudySessionsUser = (req, res) => {
         where: {
             userEmail: user_email
         }
-    }).then(response => res.status(200).json(response))
+    }).then(response => res.status(200).json({
+        message: "Fetches Sessions",
+        data: response
+    }))
     .catch(error => res.status(400).json({error: "Couldn't Access Sessions"}))
 }
 
@@ -29,7 +32,7 @@ const createStudySession = async (req, res, next) => {
         return res.status(400).json({error: "This session already exists"});
     }
     StudySession.create(req.body)
-    .then((newStudySession)=>res.status(201).json(newStudySession))
+    .then((newStudySession)=>res.status(201).json({message: "Created Session"}))
     .catch(error=>res.status(400).json({error: "Couldn't Create New Session"}));
 };
 

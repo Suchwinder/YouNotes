@@ -32,13 +32,15 @@ const useStyles = makeStyles((theme) => ({
   },
   modal: {
     display: 'flex',
+    justifyContent: 'center',
+    marginTop: '5rem'
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
-    height: "35em",
-    width: "60em",
+    height: "30em",
+    width: "50em",
     borderRadius: '4px',
     outline: 'none',
   },
