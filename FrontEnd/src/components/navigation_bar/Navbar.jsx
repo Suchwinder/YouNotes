@@ -11,13 +11,9 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-<<<<<<< HEAD
 import { Redirect } from 'react-router-dom';
-=======
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
->>>>>>> 4ec23455f217c62e6ebcdee0a9bf67c5380a2a6f
-
 
 const useStyles = makeStyles((theme) => ({
   navbutton: {
@@ -79,7 +75,7 @@ const Navbar = props => {
   const [firstname, setFirstName] = useState('');
   const [lastname, setLastName] = useState('');
   const [username, setUsername] = useState('');
-  const [redirec, setRedirect] = useState(false);
+  const [redirect, setRedirect] = useState(false);
 
   const handleOpen = () => {
     setOpen(true);
