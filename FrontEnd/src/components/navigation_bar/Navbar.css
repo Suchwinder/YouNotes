@@ -17,10 +17,6 @@
     padding: 0rem 1rem;
 }
 
-/* .navbar-options #non-main-nav-options {
-    float: right;
-} */
-
 .navbar-items a{
     padding: 1.1rem 1rem;
     color: royalblue;
@@ -46,8 +42,3 @@
     border-radius: 5px;
 }
 
-/* .close-button {
-    position: absolute;
-    top: 0;
-    right: 0;
-} */
