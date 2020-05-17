@@ -4,7 +4,7 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const { isAuthenticated } = require('../middleware');
 
-const { User, StudySession, Note } = require("../database/models");
+const { User } = require("../database/models");
 
 // Helper functions to perform queries using sequelize
 const createUser = async (req, res) => { 
@@ -18,7 +18,7 @@ const createUser = async (req, res) => {
     req.session.user_id = user.email; // adding key: value pair for future requests that require the user to be logged in, basically this is what passport would do 
     return res.status(200).json({message: 'User Successfully Created'}); // Successfuly created
   } catch(error) {
-    return res.status(400).json({error: "Coudn't create user"})
+    return res.status(400).json({error: "User Already Exists"})
   }
 }
 
@@ -40,12 +40,23 @@ const getUser = async (req, res) => {
   }
 }
 
+const logOutUser = async (req, res) => {
+  try {
+    req.session.destroy();
+  } catch(error) {
+    return res.status(400).json({error: "User has already been logged out"})
+  }
+}
+
 //––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
 // Create a user
 router.post('/signup', createUser);
 
-// sign in a user
+// Sign in a user
 router.post('/login', getUser);
+
+// Log out a user
+router.delete('/logout', isAuthenticated, logOutUser)
 
 module.exports = router;

@@ -85,6 +85,7 @@ const prepareDatabase = async () => {
         // create the local database
         await createLocalDatabase();
         // need to connect sequelize instance to database before seeding
+        // force:true drops tables that exist and recreates them
         await db.sync({force:true});
         // and now can populate database
         await seedDatabase();
