@@ -124,6 +124,7 @@ const Navbar = props => {
       if (status === 400 || status === 500) {
         alert(result.error);
       } else {
+        setRedirect(true);
         console.log("Successfully logged in");
       }
     } catch (error) {
@@ -158,7 +159,7 @@ const Navbar = props => {
         return alert(result.error);
       }
       else {
-        // setRedirect(true);
+        setRedirect(true);
         console.log(result.message);
       }
 
@@ -166,44 +167,101 @@ const Navbar = props => {
     } catch(error){
       console.log(error);
     }
-    
-    
   }
 
 
   return(
-    <div className='navbar'>
-      <nav className='navbar-options'>
-        <div></div>
-        <div className='navbar-items'>
-          <ul>
-            <li><ScrollLink to='homepage' smooth={true} duration={1000}>YouNotes</ScrollLink></li>
-            <li id='non-main-nav-options'><ScrollLink to='main' smooth={true} duration={1000}> About</ScrollLink></li>
-            <li id='non-main-nav-options'><ScrollLink to='contact' smooth={true} duration={1000}>Contact</ScrollLink></li>
-          </ul>
-        </div>
-        <Button onClick={handleOpen} className={classes.navbutton}>Login/Signup</Button>
-      </nav>
-      <div className='log-in'>
-        <Modal
-          aria-labelledby="transition-modal-title"
-          aria-describedby="transition-modal-description"
-          className={classes.modal}
-          open={open}
-          onClose={handleClose}
-          closeAfterTransition
-          BackdropComponent={Backdrop}
-          BackdropProps={{
-            timeout: 500,
-          }}
-        >
-          <Fade in={open}>
-            <div className={classes.paper}>
-            <IconButton classname={classes.closebutton} onClick={handleClose} >
-            <CloseIcon/>
-            </IconButton>
-              <div className='login'>
-                <div className='email-password'>
+    <div>
+      {
+        {redirect}
+        ? <Redirect to='/study_sessions'/>
+        :
+        <div className='navbar'>
+        <nav className='navbar-options'>
+          <div></div>
+          <div className='navbar-items'>
+            <ul>
+              <li><ScrollLink to='homepage' smooth={true} duration={1000}>YouNotes</ScrollLink></li>
+              <li id='non-main-nav-options'><ScrollLink to='main' smooth={true} duration={1000}> About</ScrollLink></li>
+              <li id='non-main-nav-options'><ScrollLink to='contact' smooth={true} duration={1000}>Contact</ScrollLink></li>
+            </ul>
+          </div>
+          <Button onClick={handleOpen} className={classes.navbutton}>Login/Signup</Button>
+        </nav>
+        <div className='login_signup'>
+          <Modal
+            aria-labelledby="transition-modal-title"
+            aria-describedby="transition-modal-description"
+            className={classes.modal}
+            open={open}
+            onClose={handleClose}
+            closeAfterTransition
+            BackdropComponent={Backdrop}
+            BackdropProps={{
+              timeout: 500,
+            }}
+          >
+            <Fade in={open}>
+              <div className={classes.paper}>
+              <IconButton classname={classes.closebutton} onClick={handleClose} >
+              <CloseIcon/>
+              </IconButton>
+                <div className='login'>
+                  <div className='email-password'>
+                    <TextField
+                      className={classes.textfields}
+                      required
+                      name="email-input"
+                      label="Email"
+                      variant="outlined"
+                      onChange={handleChange}
+                      // value={email}
+                    />
+                    <br/>
+                    <TextField
+                      className={classes.textfields}
+                      required
+                      name="password-input"
+                      label="Password"
+                      type="password"
+                      variant="outlined"
+                      onChange={handleChange}
+                      // value={password}
+                    />
+                  </div>
+                  <Button className={classes.registerbutton} onClick={confirmLogIn}>Log In</Button>
+                </div>
+                <div className='signup'>
+                  <TextField
+                    className={classes.textfields}
+                    required
+                    name="first-name-input"
+                    label="First Name"
+                    variant="outlined"
+                    onChange={handleChange}
+                    // value={firstname}
+                  />
+                  <br/>
+                  <TextField
+                    className={classes.textfields}
+                    required
+                    name="last-name-input"
+                    label="Last Name"
+                    variant="outlined"
+                    onChange={handleChange}
+                    // value={lastname}
+                  />
+                  <br/>
+                  <TextField
+                    className={classes.textfields}
+                    required
+                    name="username-input"
+                    label="Username"
+                    variant="outlined"
+                    onChange={handleChange}
+                    // value={username}
+                  />
+                  <br/>
                   <TextField
                     className={classes.textfields}
                     required
@@ -224,68 +282,16 @@ const Navbar = props => {
                     onChange={handleChange}
                     // value={password}
                   />
+                  <br/>
+                  <Button className={classes.registerbutton} onClick={confirmSignUp}> Sign up </Button>
                 </div>
-                <Button className={classes.registerbutton} onClick={confirmLogIn}>Log In</Button>
               </div>
-              <div className='signup'>
-                <TextField
-                  className={classes.textfields}
-                  required
-                  name="first-name-input"
-                  label="First Name"
-                  variant="outlined"
-                  onChange={handleChange}
-                  // value={firstname}
-                />
-                <br/>
-                <TextField
-                  className={classes.textfields}
-                  required
-                  name="last-name-input"
-                  label="Last Name"
-                  variant="outlined"
-                  onChange={handleChange}
-                  // value={lastname}
-                />
-                <br/>
-                <TextField
-                  className={classes.textfields}
-                  required
-                  name="username-input"
-                  label="Username"
-                  variant="outlined"
-                  onChange={handleChange}
-                  // value={username}
-                />
-                <br/>
-                <TextField
-                  className={classes.textfields}
-                  required
-                  name="email-input"
-                  label="Email"
-                  variant="outlined"
-                  onChange={handleChange}
-                  // value={email}
-                />
-                <br/>
-                <TextField
-                  className={classes.textfields}
-                  required
-                  name="password-input"
-                  label="Password"
-                  type="password"
-                  variant="outlined"
-                  onChange={handleChange}
-                  // value={password}
-                />
-                <br/>
-                <Button className={classes.registerbutton} onClick={confirmSignUp}> Sign up </Button>
-              </div>
-            </div>
-          </Fade>
-        </Modal>
-        {/* <h2 className="login-header">Log In</h2> */}
+            </Fade>
+          </Modal>
+          {/* <h2 className="login-header">Log In</h2> */}
+        </div>
       </div>
+      }
     </div>
   )
 };
