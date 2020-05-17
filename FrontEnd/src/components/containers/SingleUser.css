@@ -1,0 +1,41 @@
+.usernav-items a{
+    padding: 1.1rem 1rem;
+    color: royalblue;
+    font-family: sans-serif;
+    text-decoration: none;
+}
+
+.usernav-items ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    margin-top: 20px;
+    float: left;
+}
+
+.usernav-items li{
+  padding: 0 1rem;
+}
+
+.usernav-items a:hover ,
+.usernav-items a:active {
+    cursor: pointer;
+    background-color: #f0eded;
+    border-radius: 5px;
+}
+
+.linkright {
+    float: right;
+   
+}
+
+.new-session {
+    display: flex;
+    margin-top: 60px;
+    padding: 40px;
+}
+
+.sessions-page {
+    padding-top: 10px;
+}
