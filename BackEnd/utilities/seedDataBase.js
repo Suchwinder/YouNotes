@@ -15,7 +15,6 @@ const { User, Note, StudySession } = require('../database/models/')
  * asynchornous creation occur one after the other (aka synchronously), i think
  */
 const seedDatabase = async () => {
-    console.log("running seed");
     const tempU = await User.create({
         firstName: "John",
         lastName: "Smith",

@@ -9,6 +9,7 @@
 /**
  * Need to import pg-tools to create database
  * more info: https://www.npmjs.com/package/pgtools
+ * can use pg directly, haven't practiced it myself
  */
 const pgtools = require('pgtools');
 

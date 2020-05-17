@@ -11,9 +11,9 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import { Redirect } from 'react-router-dom';
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
-
 
 const useStyles = makeStyles((theme) => ({
   navbutton: {
@@ -75,6 +75,7 @@ const Navbar = props => {
   const [firstname, setFirstName] = useState('');
   const [lastname, setLastName] = useState('');
   const [username, setUsername] = useState('');
+  const [redirect, setRedirect] = useState(false);
 
   const handleOpen = () => {
     setOpen(true);
@@ -107,7 +108,7 @@ const Navbar = props => {
       "password": password
     }
     try{
-      const response = await fetch('/api/login', {
+      const response = await fetch('/api/user/login', {
         headers:{
           'Accept': 'application/json',
           'Content-Type': 'application/json'
@@ -117,6 +118,7 @@ const Navbar = props => {
       });
 
       const status = response.status;
+      // console.log(result);
       const result = await response.json();
 
       if (status === 400 || status === 500) {
@@ -131,25 +133,40 @@ const Navbar = props => {
 
   const confirmSignUp = async(event)=>{
     const user = {
-      "first-name": firstname, 
-      "last-name": lastname,
+      "firstName": firstname, 
+      "lastName": lastname,
       "username": username, 
       "email": email, 
       "password": password
     }
     try{
-      const response = await('/api/signup', {
-        header: {
+      const response = await fetch('/api/user/signup', {
+        headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
         method: 'POST',
         body: JSON.stringify(user)
       });
-      console.log(response);
+      const status = response.status;
+      const result = await response.json();
+
+      if(status === 401) {
+        return alert(result.error);
+      }
+      else if( status === 400 || status === 500) {
+        return alert(result.error);
+      }
+      else {
+        // setRedirect(true);
+        console.log(result.message);
+      }
+
+      // console.log(response);
     } catch(error){
       console.log(error);
     }
+    
     
   }
 

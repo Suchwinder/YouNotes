@@ -12,7 +12,7 @@ const User = db.define('user', {
     //attributes
     id: {
         type: Sequelize.INTEGER,
-        primaryKey: true,
+        // primaryKey: true,
         autoIncrement: true // Automatically gets converted to SERIAL for postgres
     },
 
@@ -33,12 +33,13 @@ const User = db.define('user', {
 
     email: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
+        primaryKey: true,
     },
 
     password: {
         type: Sequelize.STRING,
-        allowNull: Sequelize.STRING
+        allowNull: false
     }
 })
 

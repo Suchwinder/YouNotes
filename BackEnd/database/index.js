@@ -11,7 +11,9 @@ const { dbname } = require('../config')
  * for setup info: https://sequelize.org/master/manual/getting-started.html
  */
 const { Sequelize } = require('sequelize');
-const db = new Sequelize(`postgres://localhost:5432/${dbname}`); // connecting to db using SEQUALIZE object instantiation
+const db = new Sequelize(`postgres://localhost:5432/${dbname}`, {
+    // logging: false // no need to log every query
+}); // connecting to db using SEQUALIZE object instantiation
 
 // Export our instance of Sequelize, which will be ued in our models to set up the tables in our db
 module.exports = db;
