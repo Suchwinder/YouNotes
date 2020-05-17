@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 import './SingleUser.css';
 import { Link as ScrollLink} from 'react-scroll';
 import {withStyles} from '@material-ui/core/styles';
-import { Grid, Typography, Modal } from '@material-ui/core';
-// import { makeStyles, AppBar, Toolbar } from '@material-ui/core';
+import { Grid, Typography, Modal, TextField } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+import CloseIcon from '@material-ui/icons/Close';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -16,6 +16,8 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
 
 const styles = theme => ({
     root: {
@@ -41,6 +43,10 @@ const styles = theme => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+
+      },
+      textfields: {
+        marginBottom: '0.5em'
       },
 });
 
@@ -64,7 +70,10 @@ class SingleUser extends Component {
     state = {
         loggedin: false,
         open: false,
-        close: false
+        sessionTitle: '',
+        description: '',
+        sessionSubject: '',
+        videoUrl: '',
     }
 
     setOpen() {
@@ -72,11 +81,25 @@ class SingleUser extends Component {
     } 
 
     setClose() {
-      this.setState({close:true})
+      this.setState({open:false})
     }
 
     handleLoggedIn = () => {
         this.setState({loggedin:true})
+    }
+
+    handleChange = (event) => {
+      const name = event.target.name;
+      const data = event.target.value;
+      if(name === 'sessionTitle-input'){
+        this.setState({sessionTitle:data});
+      } else if(name === 'description-input'){
+        this.setState({description:data});
+      } else if(name === 'sessionSubject-input'){
+        this.setState({sessionSubject:data});
+      } else if(name === 'videoUrl-input'){
+        this.setState({videoUrl:data});
+      }
     }
 
 render(){
@@ -114,15 +137,66 @@ render(){
           open={this.state.open}
           onClose={this.state.close}
           closeAfterTransition
-          // BackdropComponent={Backdrop}
+          BackdropComponent={Backdrop}
           BackdropProps={{
             timeout: 500,
           }}
         >
-          <Typography> Modal </Typography>
-          {/* <Fade>
-
-          </Fade> */}
+          <Fade in={this.state.open}>
+            <div className='session-modal'>
+            <Paper style={{minHeight: 400, maxHeight:400, minWidth: 500, maxWidth: '100%', overflow: 'auto'}}>
+              <div style = {{display: 'flex', flexDirection: 'row-reverse'}}>
+              <IconButton onClick={this.setClose.bind(this)}>
+              <CloseIcon/>
+              </IconButton>
+              </div>
+              <br/>
+              <div className='session-modal-text'>
+                <TextField
+                className={classes.textfields}
+                required
+                name="sessionTitle-input"
+                label="Title of your session"
+                variant="outlined"
+                onChange={this.handleChange.bind(this)}
+                />
+                <br/>
+                <TextField
+                className={classes.textfields}
+                required
+                name="sessionSubject-input"
+                label="Subject"
+                variant="outlined"
+                onChange={this.handleChange.bind(this)}
+                />
+                <br/>
+                <TextField
+                className={classes.textfields}
+                required
+                name="description-input"
+                label="Description"
+                variant="outlined"
+                onChange={this.handleChange.bind(this)}
+                />
+                <br/>
+                <TextField
+                className={classes.textfields}
+                required
+                name="videoUrl-input"
+                label="Video URL"
+                variant="outlined"
+                onChange={this.handleChange.bind(this)}
+                />
+                <br/>
+              </div>
+              <div className='session-submit'>
+                <Button onClick={this.setClose.bind(this)} variant="contained" color="primary">
+                  Begin
+                </Button>
+              </div>
+            </Paper>
+            </div>
+          </Fade>
         </Modal>
         </div>
         <main className='sessions-page'>
