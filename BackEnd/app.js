@@ -126,11 +126,13 @@ const configureApp = async () => {
   }));
 
   app.use(async (req, res, next) => {
-    console.log("This is the cookie, ", req.session);
     try {
+      // Check if there is a user_id stored in our session, meaning someone is logged in
       if(req.session.user_id){
-        console.log('nlasdnalkd')
         const user = await User.findByPk(req.session.user_id);
+        // create a user key in the request object and store it
+        // this middle ware function isnt necessary, based on my understaind
+        // but its use is good for undesratnding how the express server is set up
         req.user = user;
       } 
     } catch(error) {
@@ -140,18 +142,20 @@ const configureApp = async () => {
     }
   });
 
+  // Use the below console.log in order to see the call stack and how next passes down into the next layer on the stack
+  // which in this case is our router, that has all the api functions
+  // console.log(app._router.stack);
+
   // In order to take all controllers and use them in our express main app
   const apiRouter = require('./routes/');
   app.use('/api', apiRouter);
 
-
-  // console.log(app._router.stack);
+  // NOTE THIS ENTIRE CONFIGURE APP HAPPENS ON EACH REQUEST FROM THE FRONT END TO THE BACK END
 };
 
 // want to asynchonously set up database but ensure the order of
 // events occurs properly. 
 const bootApp = async () => {
-
   await prepareDatabase();
   await configureApp();
 };
