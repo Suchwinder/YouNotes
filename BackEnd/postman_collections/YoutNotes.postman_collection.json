@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "http://127.0.0.1:3001/api/user/login",
+			"name": "login",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -40,7 +40,7 @@
 			"response": []
 		},
 		{
-			"name": "http://127.0.0.1:3001/api/user/signup",
+			"name": "register",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -70,6 +70,124 @@
 					]
 				},
 				"description": "Sign up a user for YouNotes"
+			},
+			"response": []
+		},
+		{
+			"name": "getSessions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:3001/api/sessions/getSessions",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"sessions",
+						"getSessions"
+					]
+				},
+				"description": "Get all sessions of a user"
+			},
+			"response": []
+		},
+		{
+			"name": "logout",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:3001/api/user/logout",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"user",
+						"logout"
+					]
+				},
+				"description": "Logout a user"
+			},
+			"response": []
+		},
+		{
+			"name": "createSession",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"videoUrl\": \"https://www.youtube.com/channel/UCBR8-60-B28hp2BmDPdntcQ\",\n\t\"studySessionName\": \"Youtube Test\",\n\t\"studySessionDescription\": \"This is the youtube channel\",\n\t\"studySessionSubject\": \"Entertainment\",\n\t\"studySessionDate\": \"2008-11-11\",\n\t\"userEmail\": \"such@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3001/api/sessions/createSession",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"sessions",
+						"createSession"
+					]
+				},
+				"description": "To Create a new study session for the user"
+			},
+			"response": []
+		},
+		{
+			"name": "deleteSession",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": 9\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3001/api/sessions/deleteSession",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"sessions",
+						"deleteSession"
+					]
+				},
+				"description": "Delete a session based on the id of the session"
 			},
 			"response": []
 		}
