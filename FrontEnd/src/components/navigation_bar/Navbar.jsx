@@ -69,6 +69,7 @@ const Navbar = props => {
   const [firstname, setFirstName] = useState('');
   const [lastname, setLastName] = useState('');
   const [username, setUsername] = useState('');
+  const [redirec, setRedirect] = useState(false);
 
   const handleOpen = () => {
     setOpen(true);
@@ -141,10 +142,25 @@ const Navbar = props => {
         method: 'POST',
         body: JSON.stringify(user)
       });
-      console.log(response);
+      const status = response.status;
+      const result = await response.json();
+
+      if(status === 401) {
+        return alert(result.error);
+      }
+      else if( status === 400 || status === 500) {
+        return alert(result.error);
+      }
+      else {
+        // setRedirect(true);
+        console.log(result.message);
+      }
+
+      // console.log(response);
     } catch(error){
       console.log(error);
     }
+    
     
   }
 
