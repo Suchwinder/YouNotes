@@ -11,6 +11,7 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import { Redirect } from 'react-router-dom';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -100,7 +101,7 @@ const Navbar = props => {
       "password": password
     }
     try{
-      const response = await fetch('/api/login', {
+      const response = await fetch('/api/user/login', {
         headers:{
           'Accept': 'application/json',
           'Content-Type': 'application/json'
@@ -110,6 +111,7 @@ const Navbar = props => {
       });
 
       const status = response.status;
+      // console.log(result);
       const result = await response.json();
 
       if (status === 400 || status === 500) {
@@ -124,15 +126,15 @@ const Navbar = props => {
 
   const confirmSignUp = async(event)=>{
     const user = {
-      "first-name": firstname, 
-      "last-name": lastname,
+      "firstName": firstname, 
+      "lastName": lastname,
       "username": username, 
       "email": email, 
       "password": password
     }
     try{
-      const response = await('/api/signup', {
-        header: {
+      const response = await fetch('/api/user/signup', {
+        headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },

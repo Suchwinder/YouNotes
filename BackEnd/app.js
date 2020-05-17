@@ -15,7 +15,7 @@ const path = require('path');
 const logger = require('morgan');
 
 /**
- * Additional security
+ * Additional security located in headers
  * more info: https://helmetjs.github.io/
  */
 const helmet = require('helmet');
@@ -35,11 +35,24 @@ const cors = require('cors');
 
 /**
  * Use in order to pass information from one request to another,
- * basically a way to keep track of who is making the request, without using a 
- * cookies that can be accessed on the browser, but rather a session id
+ * basically a way to keep track of who is making the request, without using user data
+ * that can be accessed on the browser via cookies, but rather a session id that is stored in the cookie on the browser
  * more info: https://www.tutorialspoint.com/expressjs/expressjs_sessions.htm
+ * https://flaviocopes.com/express-sessions/
  */
 const session = require('express-session');
+
+/**
+ * So with our session storing informatio to see which of the users is making requests
+ * we now need to be able to store this somewhere. Below (in configureApp function) when we are setting up our 
+ * session we emphasize the required parameter (secret in order to sign our cookie so it cannot 
+ * be decrypted easily and messed with). In addition there is an optional parameter called store.
+ * By default this is set to memoryStore which isnt good for production as the docs state it leads to
+ * memory leaks. So for use we will use this library below to store it into a sequelize database.
+ * more info: https://www.npmjs.com/package/connect-session-sequelize
+ * mor info on secret: https://martinfowler.com/articles/session-secret.html#HowToCrackAWeakSessionSecret
+ */
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 /**
  * Need to set up database with sequalize
@@ -55,7 +68,7 @@ const createLocalDatabase = require('./utilities/createLocalDatabase');
 const seedDatabase = require('./utilities/seedDataBase');
 
 // creating function to sync database asynchoronously
-const prepareDatabase = () => {
+const prepareDatabase = async () => {
   if(process.env.NODE_ENV === 'production') {
     db.sync().then(()=> seedDatabase())
   }
@@ -83,8 +96,10 @@ const prepareDatabase = () => {
   }
 };
 
+const { User } = require('./database/models')
+
 // creating a function to be called aynchornously when setting up middleware 
-const configureApp = () => {
+const configureApp = async () => {
   // Using the various middleware, and other imports
   app.use(logger('dev')); // for logging requests
   app.use(helmet()); // for addidtional security in headers
@@ -94,12 +109,49 @@ const configureApp = () => {
   // Will be used later when our app is built and need to use 
   // static files like css, js, and images etc. : https://expressjs.com/en/starter/static-files.html
   // app.use(express.static("../FrontEnd/build")); 
-  app.use(cors());
+  app.use(cors()); // enable us to interact with the different origin when front end interacts with back end
+  // Since our web app is using login in order to authenitcate users, a means to 
+  // enforce that the same user is logged in we will use sessions.
+  // The sessions will store and ID in the cookie that will be used by the browser.
+  // Each time a request is sent from the browser to the server the server will
+  // decode the cookie based on the secret we have assigned it, and then use the ID to get
+  // the data in order to ensure the same user is logged in
+  // more info: https://www.npmjs.com/package/express-session, https://flaviocopes.com/express-sessions/
+  app.use(session({
+    secret: 'a bad secret',
+    store: new SequelizeStore({db}),
+    saveUninitialized: false,
+    resave: false, // we support the touch method so per the express-session docs this should be set to false
+    proxy: true // if you do SSL outside of node.
+  }));
+
+  app.use(async (req, res, next) => {
+    console.log("This is the cookie, ", req.session);
+    try {
+      if(req.session.user_id){
+        console.log('nlasdnalkd')
+        const user = await User.findByPk(req.session.user_id);
+        req.user = user;
+      } 
+    } catch(error) {
+      console.log(error);
+    } finally {
+      next();
+    }
+  });
+
+  // In order to take all controllers and use them in our express main app
+  const apiRouter = require('./routes/');
+  app.use('/api', apiRouter);
+
+
+  // console.log(app._router.stack);
 };
 
 // want to asynchonously set up database but ensure the order of
 // events occurs properly. 
 const bootApp = async () => {
+
   await prepareDatabase();
   await configureApp();
 };
