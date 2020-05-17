@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import './SingleUser.css';
 import { Link as ScrollLink} from 'react-scroll';
 import {withStyles} from '@material-ui/core/styles';
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, Typography, Modal } from '@material-ui/core';
 // import { makeStyles, AppBar, Toolbar } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
@@ -24,7 +24,7 @@ const styles = theme => ({
       paper: {
         padding: theme.spacing(2),
         margin: 'auto',
-        maxWidth: 500,
+        maxWidth: 650,
       },
       sessionbox: {
         width: 151,
@@ -36,7 +36,12 @@ const styles = theme => ({
         fontSize: 20,
         color: '#11153e',
         align: 'center'
-    },
+      },
+      modal: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
 });
 
 const style = {
@@ -49,20 +54,30 @@ const style = {
 
 const sessionNumber = [0, 1, 2, 3, 4, 5, 6];
 
+const handleSignout = () => {
+  this.setState({loggedin:false})
+}
+
+
 
 class SingleUser extends Component {
     state = {
-        loggedin: false
+        loggedin: false,
+        open: false,
+        close: false
+    }
+
+    setOpen() {
+      this.setState({open:true})
+    } 
+
+    setClose() {
+      this.setState({close:true})
     }
 
     handleLoggedIn = () => {
         this.setState({loggedin:true})
     }
-
-    // async componentDidMount() {
-    // const loggedin = await ( await fetch('/api/loggedin')).json()
-    // this.setState({loggedin})
-    // }
 
 render(){
     const {classes} = this.props;
@@ -76,20 +91,39 @@ render(){
             </ul>
               <div className="linkright">
               <ul>
-                <li><ScrollLink to='main' smooth={true} duration={1000}> LogOut</ScrollLink></li>
+                <li><ScrollLink to='main' smooth={true} duration={1000} onClick={handleSignout}> LogOut</ScrollLink></li>
               </ul>
               </div> 
             </div>
           </div> 
         </nav>
         <div className="new-session">
-            <Grid item>
-            <Link style = { style } to={`/study_sessions/add_session`}>            
-                <Button variant="contained" color="primary">
-                    New Study Session
-                </Button>
-            </Link>
-            </Grid>
+          <Grid item>
+          {/* <Link style = { style } to={`/study_sessions/add_session`}>             */}
+              <Button onClick={this.setOpen.bind(this)} variant="contained" color="primary">
+                  New Study Session
+              </Button>
+          {/* </Link> */}
+          </Grid>
+        </div>
+        <div className="new-session-click">
+        <Modal
+          aria-labelledby="transition-modal-title"
+          aria-describedby="transition-modal-description"
+          className={classes.modal}
+          open={this.state.open}
+          onClose={this.state.close}
+          closeAfterTransition
+          // BackdropComponent={Backdrop}
+          BackdropProps={{
+            timeout: 500,
+          }}
+        >
+          <Typography> Modal </Typography>
+          {/* <Fade>
+
+          </Fade> */}
+        </Modal>
         </div>
         <main className='sessions-page'>
         <Paper className={classes.paper}>
@@ -113,7 +147,7 @@ render(){
                                       height="140"
                                       title="Session #"
                                     />
-                                      <CardContent style={{backgroundColor:'white'}}>
+                                      <CardContent style={{backgroundColor:'white', minHeight: 100, maxHeight:200}}>
                                         <Typography className={classes.cardTitle} color="textSecondary" align="center" gutterBottom>
                                           {/* {session.studySessionName} */}
                                           Session Name
