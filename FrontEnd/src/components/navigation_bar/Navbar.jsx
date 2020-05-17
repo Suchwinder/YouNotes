@@ -32,8 +32,6 @@ const useStyles = makeStyles((theme) => ({
   },
   modal: {
     display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
@@ -61,9 +59,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: '0.5em'
   },
   closebutton: {
-    position: 'absolute',
-    right: 0,
-    top: 0,
+    marginLeft: '100%',
   }
 }));
 
@@ -199,9 +195,11 @@ const Navbar = props => {
         >
           <Fade in={open}>
             <div className={classes.paper}>
-            <IconButton classname={classes.closebutton} onClick={handleClose} >
-            <CloseIcon/>
-            </IconButton>
+              <div style = {{display: 'flex', flexDirection: 'row-reverse'}}>
+              <IconButton classname={classes.closebutton} onClick={handleClose} >
+              <CloseIcon/>
+              </IconButton>
+              </div>
               <div className='login'>
                 <div className='email-password'>
                   <TextField

@@ -91,7 +91,7 @@ render(){
             </ul>
               <div className="linkright">
               <ul>
-                <li><ScrollLink to='main' smooth={true} duration={1000} onClick={handleSignout}> LogOut</ScrollLink></li>
+                <li><ScrollLink to='main' smooth={true} duration={1000} onClick={handleSignout}> Logout</ScrollLink></li>
               </ul>
               </div> 
             </div>
