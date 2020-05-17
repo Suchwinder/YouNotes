@@ -1,3 +1,15 @@
+### UPDATE: 5/17/2020
+
+To test the database:
+in the database folder the logging is reported, so each request will show the sample SQL query of it as well, if you wish to remove logging comment out `logging:false` in ./database/index.js.
+In addition db sync force has been removed so now you will not lose local database contents upon restart of server. So to delete data you will manually ahve to delete it:
+
+#### Some short cuts:
+```
+truncate "studySessions" cascade 
+```
+in order to delete both the session and all notes associated with the session
+
 To install dependencies
 ```
 npm install

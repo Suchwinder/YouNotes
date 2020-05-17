@@ -16,7 +16,18 @@ const getStudySessionsUser = (req, res) => {
 }
 
 // Add a new study session
-const addStudySession = (req, res, next) => {
+const createStudySession = async (req, res, next) => {
+    const data = await StudySession.findAll({
+        where: {
+            videoUrl: req.body.videoUrl,
+            studySessionName: req.body.studySessionName,
+            studySessionDescription: req.body.studySessionDescription,
+            studySessionSubject: req.body.studySessionSubject,
+        }
+    });
+    if(data.length>0) {
+        return res.status(400).json({error: "This session already exists"});
+    }
     StudySession.create(req.body)
     .then((newStudySession)=>res.status(201).json(newStudySession))
     .catch(error=>res.status(400).json({error: "Couldn't Create New Session"}));
@@ -26,11 +37,15 @@ const addStudySession = (req, res, next) => {
 const deleteStudySession = (req, res, next) => {
     StudySession.destroy(
         {where: {id: req.body.id}})
-    .then((response) => res.sendStatus(204))
-    .catch(error=>res.status(400).json({error: "Couldn't Delete Session"}));
+    .then(() => res.status(200).json({message: "Successfully deleted session"}))
+    .catch(()=>res.status(400).json({error: "Couldn't Delete Session"}));
 }
 
 //––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-router.get('/sessions', isAuthenticated, getStudySessionsUser)
+router.get('/getSessions', isAuthenticated, getStudySessionsUser);
+
+router.post('/createSession', isAuthenticated, createStudySession);
+
+router.delete('/deleteSession', isAuthenticated, deleteStudySession);
 
 module.exports = router;

@@ -6,9 +6,26 @@ const { isAuthenticated } = require('../middleware');
 
 const { User } = require("../database/models");
 
-// Helper functions to perform queries using sequelize
+//––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+/**     These are all the Necessary Functions for User Controls      */
+
 const createUser = async (req, res) => { 
   try {
+    if(!req.body.firstName || req.body.firstName.length === 0) {
+      return res.status(400).json({error: "Please enter a first name"});
+    }
+    if(!req.body.lastName || req.body.lastName.length === 0) {
+      return res.status(400).json({error: "Please enter a last name"});
+    }
+    if(!req.body.username || req.body.username.length === 0) {
+      return res.status(400).json({error: "Please enter a username"});
+    }
+    if(!req.body.password || req.body.password.length === 0) {
+      return res.status(400).json({error: "Please enter a password"});
+    }
+    if(!req.body.email || req.body.email.length === 0 || !(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(req.body.email))){
+      return res.status(400).json({error: "Please enter a valise email"});
+    }
     req.body.password = bcrypt.hashSync(req.body.password, 10); // encrypt password 
     const user = await User.create(req.body); // create user with encrypted password and remainder of body
     // so by creating an express session, we are checking the valididty of if the client is coming from the same browser, 
@@ -18,7 +35,7 @@ const createUser = async (req, res) => {
     req.session.user_id = user.email; // adding key: value pair for future requests that require the user to be logged in, basically this is what passport would do 
     return res.status(200).json({message: 'User Successfully Created'}); // Successfuly created
   } catch(error) {
-    return res.status(400).json({error: "User Already Exists"})
+    return res.status(400).json({error: "User Already Exists"});
   }
 }
 
@@ -27,8 +44,14 @@ const getUser = async (req, res) => {
     if(req.user){
       return res.status(400).json({error: 'User already logged in'});
     }
+    if(!req.body.password || req.body.password.length === 0) {
+      return res.status(400).json({error: "Please enter a password"});
+    }
+    if(!req.body.email || req.body.email.length === 0 || !(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(req.body.email))){
+      return res.status(400).json({error: "Please enter a valise email"});
+    }
     req.body.password = bcrypt.hashSync(req.body.password, 10); // we encrypt password inputted to see if it matches the one existing in the database
-    const user = await User.findOne(req.body);
+    const user = await User.findByPk(req.body.email);
     if(user) {
       req.session.user_id = user.email;
       return res.status(200).json({message: 'User logged in'});
@@ -36,15 +59,16 @@ const getUser = async (req, res) => {
       throw Error("User doesn't exist");
     }
   } catch(error) {
-    return res.status(400).json({error: error.message})
+    return res.status(400).json({error: error.message});
   }
 }
 
 const logOutUser = async (req, res) => {
   try {
     req.session.destroy();
+    return res.status(200).json({message: "User successfuly logged out"});
   } catch(error) {
-    return res.status(400).json({error: "User has already been logged out"})
+    return res.status(400).json({error: "User has already been logged out"});
   }
 }
 
