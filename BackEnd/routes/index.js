@@ -13,7 +13,9 @@
  const router = express.Router();
 
  const userRouter = require('./UserController');
+ const sessionRouter = require('./SessionController');
 
  router.use('/user', userRouter);
+ router.use('/sessions', sessionRouter);
  
  module.exports = router;
