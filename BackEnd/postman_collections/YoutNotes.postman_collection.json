@@ -1,0 +1,78 @@
+{
+	"info": {
+		"_postman_id": "6d8dc5d3-cdd8-4ab9-b55b-c4e0337d9eec",
+		"name": "YoutNotes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://127.0.0.1:3001/api/user/login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"such@gmail.com\",\n\t\"password\": \"testing\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3001/api/user/login",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"user",
+						"login"
+					]
+				},
+				"description": "This is to login a user"
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:3001/api/user/signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"firstName\": \"Such\",\n\t\"lastName\": \"Singh\",\n\t\"username\": \"such97\",\n\t\"email\": \"such@gmail.com\",\n\t\"password\": \"testing\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3001/api/user/signup",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"user",
+						"signup"
+					]
+				},
+				"description": "Sign up a user for YouNotes"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

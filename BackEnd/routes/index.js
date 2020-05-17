@@ -13,7 +13,7 @@
  const router = express.Router();
 
  const userRouter = require('./UserController');
- const sessionRouter = require('./SessionController');
+ const sessionRouter = require('./SessionsController');
 
  router.use('/user', userRouter);
  router.use('/sessions', sessionRouter);

@@ -78,7 +78,7 @@ const prepareDatabase = async () => {
      * sync will create tables that dont exist, and force:true will recreate tables 
      * more info: https://stackoverflow.com/questions/50358977/what-is-really-sync-in-sequelize-for 
     */
-    db.sync({force:true})
+    db.sync({force:false})
     .then(() => seedDatabase())
     .catch( async (err) => {
       if (err.name === 'SequelizeConnectionError') {
@@ -91,13 +91,13 @@ const prepareDatabase = async () => {
         await seedDatabase();
       }
       else {
-        console.log(err);
+        console.log("everything exists already");
       }
     });
   }
 };
 
-const { User } = require('./database/models')
+const { User } = require('./database/models') // to use in our middleware in configureApp 
 
 // creating a function to be called aynchornously when setting up middleware 
 const configureApp = async () => {
@@ -152,6 +152,8 @@ const configureApp = async () => {
   app.use('/api', apiRouter);
 
   // NOTE THIS ENTIRE CONFIGURE APP HAPPENS ON EACH REQUEST FROM THE FRONT END TO THE BACK END
+
+  // console.log("This is the stack: ", app._router.stack);
 };
 
 // want to asynchonously set up database but ensure the order of
