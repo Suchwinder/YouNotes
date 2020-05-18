@@ -20,11 +20,11 @@ const createUser = async (req, res) => {
     if(!req.body.username || req.body.username.length === 0) {
       return res.status(400).json({error: "Please enter a username"});
     }
+    if(!req.body.email || req.body.email.length === 0 || !(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(req.body.email))){
+      return res.status(400).json({error: "Please enter a valid email"});
+    }
     if(!req.body.password || req.body.password.length === 0) {
       return res.status(400).json({error: "Please enter a password"});
-    }
-    if(!req.body.email || req.body.email.length === 0 || !(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(req.body.email))){
-      return res.status(400).json({error: "Please enter a valise email"});
     }
     req.body.password = bcrypt.hashSync(req.body.password, 10); // encrypt password 
     const user = await User.create(req.body); // create user with encrypted password and remainder of body
@@ -41,14 +41,14 @@ const createUser = async (req, res) => {
 
 const getUser = async (req, res) => {
   try {
-    if(req.user){
+    if(req.session.user_id){
       return res.status(400).json({error: 'User already logged in'});
+    }
+    if(!req.body.email || req.body.email.length === 0 || !(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(req.body.email))){
+      return res.status(400).json({error: "Please enter a valid email"});
     }
     if(!req.body.password || req.body.password.length === 0) {
       return res.status(400).json({error: "Please enter a password"});
-    }
-    if(!req.body.email || req.body.email.length === 0 || !(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(req.body.email))){
-      return res.status(400).json({error: "Please enter a valise email"});
     }
     req.body.password = bcrypt.hashSync(req.body.password, 10); // we encrypt password inputted to see if it matches the one existing in the database
     const user = await User.findByPk(req.body.email);
@@ -65,7 +65,8 @@ const getUser = async (req, res) => {
 
 const logOutUser = async (req, res) => {
   try {
-    req.session.destroy();
+    await req.session.destroy();
+    delete req.user;
     return res.status(200).json({message: "User successfuly logged out"});
   } catch(error) {
     return res.status(400).json({error: "User has already been logged out"});
