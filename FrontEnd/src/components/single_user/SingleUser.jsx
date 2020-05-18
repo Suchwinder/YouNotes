@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './SingleUser.css';
-import { Link as ScrollLink} from 'react-scroll';
+import UserNav from '../user_nav/UserNav'
 import {withStyles} from '@material-ui/core/styles';
 import { Grid, Typography, Modal, TextField } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
@@ -65,7 +65,7 @@ const sessionNumber = [0, 1, 2, 3, 4, 5, 6];
 
 class SingleUser extends Component {
     state = {
-        loggedin: true,
+        // loggedin: true,
         open: false,
         sessionTitle: '',
         description: '',
@@ -81,9 +81,9 @@ class SingleUser extends Component {
       this.setState({open:false})
     }
 
-    handleSignout() {
-      this.setState({loggedin:false})
-    }
+    // handleSignout() {
+    //   this.setState({loggedin:false})
+    // }
 
     handleChange = (event) => {
       const name = event.target.name;
@@ -103,20 +103,21 @@ class SingleUser extends Component {
       const {classes} = this.props;
       return (
         <div className={classes.root}>
-          <nav className="navbar">
+          {/* <nav className="navbar">
             <div className="usernav-options">
               <div className="usernav-items">
               <ul>
-                <li><ScrollLink to='homepage' smooth={true} duration={1000}>YouNotes</ScrollLink></li>
+                <li><Link smooth={true} duration={1000}> YouNotes </Link></li>
               </ul>
                 <div className="linkright">
                 <ul>
-                  <li><ScrollLink to='main' smooth={true} duration={1000} onClick={this.handleSignout.bind(this)}> Logout</ScrollLink></li>
+                  <li><Link smooth={true} duration={1000} onClick={this.handleSignout.bind(this)}> Logout </Link></li>
                 </ul>
                 </div> 
               </div>
             </div> 
-          </nav>
+          </nav> */}
+          <UserNav/>
           <div className="new-session">
             <Grid item>
             {/* <Link style = { style } to={`/study_sessions/add_session`}>             */}
