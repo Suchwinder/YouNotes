@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import './App.css';
 import MainPage from './components/main_page/MainPage';
-import SingleUser from './components/containers/SingleUser';
+import SingleUser from './components/single_user/SingleUser';
 
 
 function App() {

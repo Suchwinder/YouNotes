@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Navbar.css';
 import { Link as ScrollLink} from 'react-scroll';
-import './../navigation_bar/Navbar.css';
+import './Navbar.css';
 // Hooks uses makeStyles, in other cases we aren't using 
 // hooks but rather Higher Order Components (HOC), more info: https://reactjs.org/docs/higher-order-components.html
 // technically we are just using components, and so we would normally use with styles, but here we aren't
