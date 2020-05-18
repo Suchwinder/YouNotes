@@ -27,6 +27,7 @@ const styles = theme => ({
         padding: theme.spacing(2),
         margin: 'auto',
         maxWidth: 650,
+        marginBottom: 40,
       },
       sessionbox: {
         width: 151,
