@@ -1,3 +1,4 @@
+/* Style of white nav bar */
 .navbar{
     position: fixed;
     width: 100%;
@@ -11,20 +12,47 @@
     z-index: 1000;
 }
 
+/* styling of options to be layed next to ach other and center in terms of height */
 .navbar-options{
     display: flex;
     height: 100%;
     align-items: center;
-    padding: 0rem 1rem;
 }
 
-.navbar-items a{
-    padding: 1.1rem 1rem;
+/* YouNotes option in the nav bar */
+#main-app-name {
+    padding: .8rem .8rem; 
+    margin: .55rem;
     color: royalblue;
     font-family: sans-serif;
     text-decoration: none;
+    font-size: 15px;
 }
 
+#main-app-name:hover {
+    cursor: pointer;
+    /* background-color: #f0eded;
+    border-radius: 5px; */
+}
+
+/* Other options on nav bar */
+#non-main-nav-options {
+    float: right;
+    padding: .8rem .8rem; 
+    margin: .7rem;
+    color: royalblue;
+    font-family: sans-serif;
+    text-decoration: none;
+    font-size: 12px;
+}
+
+#non-main-nav-options:hover {
+    cursor: pointer;
+    background-color: #f0eded;
+    border-radius: 5px;
+}
+
+/* For the ul that is wrapping the li elements */
 .navbar-items ul{
     list-style: none;
     margin: 0;
@@ -32,14 +60,13 @@
     display: flex;
 }
 
-.navbar-items li{
-  padding: 0 1rem;
-}
+/* .navbar-items li{
+  padding: 0 .8rem;
+} */
 
-.navbar-items a:hover ,
+/* .navbar-items a:hover ,
 .navbar-items a:active {
     cursor: pointer;
     background-color: #f0eded;
     border-radius: 5px;
-}
-
+} */

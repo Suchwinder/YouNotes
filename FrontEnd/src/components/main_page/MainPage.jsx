@@ -46,21 +46,22 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const MainPage = () => {
+
   const handleLink = (name) => {
     // event.preventDefault();
-    // const name = event.target.name;
-    // console.log(name)
     if(name==='Such'){
       window.open('https://github.com/Suchwinder');
     } else{
       window.open('https://github.com/MarikaWatanabe');
     }
   }
+
   const classes = useStyles();
+
   return (
-    <div className = 'home'> 
+    <div className = 'home' id ='homepage'> 
       <Navbar/>
-      <header className="App-header" id ='homepage'>
+      <header className="App-header">
         <h1 className="App-header-title"> Your All In One Study Platform.</h1>
         <h4 className="App-header-info"> YouNotes lets your note taking skills to another level. Create 
           a session for each video and take notes accordingly to your timestamp!
@@ -88,7 +89,6 @@ const MainPage = () => {
                   </CardContent>
                 </Card>
               </ButtonBase>
-
             ))}
           </Grid>
         </div>
