@@ -14,8 +14,10 @@
 
  const userRouter = require('./UserController');
  const sessionRouter = require('./SessionsController');
+ const noteRouter = require('./NotesController');
 
  router.use('/user', userRouter);
  router.use('/sessions', sessionRouter);
+ router.use('/notes', noteRouter);
  
  module.exports = router;

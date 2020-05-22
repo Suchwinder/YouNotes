@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { isAuthenticated } = require('../middleware');
 
-const { User, StudySession, Note } = require("../database/models");
+const { StudySession } = require("../database/models");
 
 // Get all the sessions a user has
 const getStudySessionsUser = (req, res) => {
