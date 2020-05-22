@@ -3,9 +3,10 @@
     position: fixed;
     width: 100%;
     background:white;
-    height: 45px;
-    /* top: 0; */
-    /* margin: 0px; */
+    height: 50px;
+    /* height: 56px; */
+    top: 0;
+    margin: 0px;
     font-family: sans-serif;
     font-weight: bold;
     z-index: 1000;

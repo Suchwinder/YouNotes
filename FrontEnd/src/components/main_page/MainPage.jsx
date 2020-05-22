@@ -1,6 +1,6 @@
 import React from 'react';
 import './static/css/MainPage.css';
-import Navbar from './navigation_bar/Navbar';
+import Navbar from './main_nav/Navbar';
 import GitHubButton from 'react-github-btn';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, ButtonBase } from '@material-ui/core';
