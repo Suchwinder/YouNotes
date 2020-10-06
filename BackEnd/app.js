@@ -70,7 +70,7 @@ const seedDatabase = require('./utilities/seedDataBase');
 // creating function to sync database asynchoronously
 const prepareDatabase = async () => {
   if(process.env.NODE_ENV === 'production') {
-    db.sync().then(()=> seedDatabase())
+    db.sync().then( () => seedDatabase() )
   }
   else {
     console.log('As a reminder, the forced synchronization option is on');
@@ -78,8 +78,9 @@ const prepareDatabase = async () => {
      * sync will create tables that dont exist, and force:true will recreate tables 
      * more info: https://stackoverflow.com/questions/50358977/what-is-really-sync-in-sequelize-for 
     */
-    db.sync({force:false})
-    .then(() => seedDatabase())
+    db.sync({force:true})
+    .then( async () => {
+      await seedDatabase()})
     .catch( async (err) => {
       if (err.name === 'SequelizeConnectionError') {
         // create the local database
