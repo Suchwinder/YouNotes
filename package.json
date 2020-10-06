@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "client-install": "npm install --prefix FrontEnd",
-    "server-install": "npm install --prefeix BackEnd"
+    "server-install": "npm install --prefix BackEnd"
   },
   "author": "Suchwinder Singh & Marika Watanabe",
   "license": "ISC"
